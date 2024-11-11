@@ -1,6 +1,6 @@
 # Recipe Scraper
 
-This project is a web scraper built using Scrapy to collect recipe data from Epicurious. The scraper extracts the title, author, creation date, ingredients, instructions, and tags from a given recipe page and stores them in a MongoDB database.
+This project is a web scraper built using Scrapy to collect recipe data from Epicurious. The scraper extracts the title, author, creation date, ingredients, instructions, nutritional information, and tags from a given recipe page and stores them in a MongoDB database.
 
 ## Table of Contents
 
@@ -66,45 +66,53 @@ This project is a web scraper built using Scrapy to collect recipe data from Epi
 To run the scraper, execute the following command:
 
 ```sh
-scrapy runspider recipes.py
+scrapy crawl recipes
 ```
 
-This command will start the spider, begin scraping the specified recipe pages, and store the scraped data in the MongoDB database recipes in the recipes collection. It also updates the categories collection with unique categories and subcategories.
+This command will start the spider, begin scraping the specified recipe pages, and store the scraped data in the MongoDB database `recipes` in the `recipes` collection. It also updates the `categories` collection with unique categories and subcategories.
 
-### Project Structure
+### Progress Tracking
 
+The scraper logs its progress to the console, showing how many recipes have been scraped so far.
+
+## Project Structure
+
+```plaintext
 recipe-scraper/
 ├── __init__.py
+├── items.py             # Defines the data structure for scraped items
+├── middlewares.py       # Custom middlewares (if any)
+├── pipelines.py         # Handles MongoDB storage
+├── settings.py          # Scrapy settings for the project
 ├── spiders/
 │   ├── __init__.py
-│   └── recipes_spider.py
+│   └── recipe_spider.py  # Main spider logic for scraping recipes
+├── utils.py             # Helper functions for data cleaning and processing
 ├── requirements.txt
 └── README.md
+```
 
-- recipe_scraper/: Contains the Scrapy project files.
-    - spiders/: Directory for spider files.
-        -    recipes_spider.py: Spider for scraping recipe data.
+- **`spiders/`**: Contains all spider files.
+    - `recipe_spider.py`: Main spider to scrape recipe data.
+- **`pipelines.py`**: Manages data persistence in MongoDB.
 
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
 1. Fork the repository.
-2. Create your feature branch: git checkout -b feature/my-new-feature
-3. Commit your changes: git commit -am 'Add some feature'
-4. Push to the branch: git push origin feature/my-new-feature
+2. Create your feature branch: `git checkout -b feature/my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin feature/my-new-feature`
 5. Submit a pull request.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
 
-
-### Explanation:
-- **Installation**: Detailed instructions on how to set up the environment and install MongoDB.
-- **Usage**: How to run the scraper and what it does.
-- **Project Structure**: Overview of the project's file structure.
-- **Example Output**: Sample output of the scraper.
-- **Contributing**: Instructions for contributing to the project.
-- **License**: Information about the project's license.
-
+### **Updates and Enhancements**:
+- **Added Progress Tracking Section**: Mentioned that progress is logged to the console.
+- **Updated Project Structure**: Included `utils.py` and `pipelines.py` for a more complete view of the project.
+- **Clarified MongoDB Usage**: Highlighted the collections used (`recipes`, `categories`).
+- **Improved Formatting**: Enhanced readability with better section titles and explanations.
